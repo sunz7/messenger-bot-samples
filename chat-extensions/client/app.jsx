@@ -51,6 +51,7 @@ export default class App extends React.Component {
       title: this.props.title,
       updating: false,
       users: [],
+      logOutput: null,
     };
   }
 
@@ -230,6 +231,7 @@ export default class App extends React.Component {
     socket.on('users:setOnline', this.setOnlineUsers);
 
     const self = this;
+    this._overrideConsoleLog();
     // Check for permission, ask if there is none
     window.MessengerExtensions.getGrantedPermissions(function(response) {
       // check if permission exists
@@ -253,6 +255,14 @@ export default class App extends React.Component {
       console.error({errorCode, errorMessage});
       window.MessengerExtensions.requestCloseBrowser(null, null);
     });
+  }
+
+  _overrideConsoleLog() {
+    var originallog = console.log;
+    console.log = txt => {
+      this.setState({ logOutput: this.state + "\n" + txt });
+      originallog.apply(console, arguments);
+    };
   }
 
   render() {
@@ -371,6 +381,11 @@ export default class App extends React.Component {
 
     return (
       <div id='app'>
+          <span>
+            {this.state.logOutput !== null
+              ? JSON.stringify(this.state.logOutput)
+              : ""}
+          </span>
         <ReactCSSTransitionGroup
           transitionName='page'
           transitionEnterTimeout={500}
