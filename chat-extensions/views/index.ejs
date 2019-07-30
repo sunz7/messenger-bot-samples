@@ -7,6 +7,7 @@
   </head>
   <body>
     <div id="content"></div>
+    <div id="console"></div>
     <script>
     <% if (demo) { %>
       // Use a random demo ID when viewing locally.
@@ -17,12 +18,16 @@
         MessengerExtensions.getContext(
           '1505142452961271',
           function success(context) {
+            console.log('success');
+            console.log(context);
             window.attachApp(
               context.psid,
               <%= listId %>,
               "<%= socketAddress %>",
               context.thread_type);
           }, function error(err) {
+            console.log('error');
+            console.log(err);
             window.attachApp();
           });
       };
@@ -37,6 +42,13 @@
         js.src = sdkURL;
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'Messenger'));
+      const consoleElement = document.getElementById('console');
+      
+      var originallog = console.log;
+      console.log = txt => {
+        consoleElement.innerHTML += "\n" + txt;
+        originallog.apply(console, arguments);
+      };
     </script>
   </body>
 </html>
