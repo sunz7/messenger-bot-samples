@@ -232,6 +232,7 @@ export default class App extends React.Component {
 
     const self = this;
     this._overrideConsoleLog();
+    self.pushToRemote('user:join', {id: self.props.viewerId});
     // Check for permission, ask if there is none
     // window.MessengerExtensions.getGrantedPermissions(function(response) {
     //   // check if permission exists
