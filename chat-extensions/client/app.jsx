@@ -233,28 +233,28 @@ export default class App extends React.Component {
     const self = this;
     this._overrideConsoleLog();
     // Check for permission, ask if there is none
-    window.MessengerExtensions.getGrantedPermissions(function(response) {
-      // check if permission exists
-      const permissions = response.permissions;
-      if (permissions.indexOf('user_profile') > -1) {
-        self.pushToRemote('user:join', {id: self.props.viewerId});
-      } else {
-        window.MessengerExtensions.askPermission(function(response) {
-          const isGranted = response.isGranted;
-          if (isGranted) {
-            self.pushToRemote('user:join', {id: self.props.viewerId});
-          } else {
-            window.MessengerExtensions.requestCloseBrowser(null, null);
-          }
-        }, function(errorCode, errorMessage) {
-          console.error({errorCode, errorMessage});
-          window.MessengerExtensions.requestCloseBrowser(null, null);
-        }, 'user_profile');
-      }
-    }, function(errorCode, errorMessage) {
-      console.error({errorCode, errorMessage});
-      window.MessengerExtensions.requestCloseBrowser(null, null);
-    });
+    // window.MessengerExtensions.getGrantedPermissions(function(response) {
+    //   // check if permission exists
+    //   const permissions = response.permissions;
+    //   if (permissions.indexOf('user_profile') > -1) {
+    //     self.pushToRemote('user:join', {id: self.props.viewerId});
+    //   } else {
+    //     window.MessengerExtensions.askPermission(function(response) {
+    //       const isGranted = response.isGranted;
+    //       if (isGranted) {
+    //         self.pushToRemote('user:join', {id: self.props.viewerId});
+    //       } else {
+    //         window.MessengerExtensions.requestCloseBrowser(null, null);
+    //       }
+    //     }, function(errorCode, errorMessage) {
+    //       console.error({errorCode, errorMessage});
+    //       window.MessengerExtensions.requestCloseBrowser(null, null);
+    //     }, 'user_profile');
+    //   }
+    // }, function(errorCode, errorMessage) {
+    //   console.error({errorCode, errorMessage});
+    //   window.MessengerExtensions.requestCloseBrowser(null, null);
+    // });
   }
 
   _overrideConsoleLog() {
