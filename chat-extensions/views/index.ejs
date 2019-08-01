@@ -36,11 +36,11 @@
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {return;}
         js = d.createElement(s); js.id = id;
-        var sdkURL =
-          `https://www.zsun.sb.facebook.com/assets.php/en_US/messenger.Extensions.js?t=` +
-          Math.random();
-        js.src = sdkURL;
-        // js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+        // var sdkURL =
+        //   `https://www.zsun.sb.facebook.com/assets.php/en_US/messenger.Extensions.js?t=` +
+        //   Math.random();
+        // js.src = sdkURL;
+        js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'Messenger'));
     </script>
